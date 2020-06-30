@@ -1,38 +1,111 @@
-.App {
-  text-align: center;
+body {
+  margin-left: 11rem;
+  margin-top: 2rem;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+h1,
+h2 {
+  font-family: "Josefin Sans", sans-serif;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+a,
+p {
+  font-family: "DM Sans", sans-serif;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+.sidenavbar {
+  height: 100%;
+  width: 10rem;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: #222831;
+  overflow-x: hidden;
+  padding-top: 20px;
+  padding: 1rem;
+}
+
+.sidelink {
+  padding: 0.5rem;
+  margin: 0.5rem;
+  text-decoration: none !important;
+  font-size: 1rem;
+  color: #eeeeee;
+  display: block;
+}
+
+.sidelink:hover {
+  color: #eeeeee;
+  background-color: #2bced6;
+  border-radius: 2px;
+}
+
+.brand {
+  color: #eeeeee;
+  font-size: 2rem;
+  text-decoration: none !important;
+}
+
+.brand:hover {
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.projectlink {
+  text-decoration: none !important;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+.project {
+  background-color: #393e46;
+  border-radius: 2px;
+  padding: 0.5rem;
+}
+
+.fontw {
+  color: #eeeeee;
+  text-decoration: none;
+}
+
+.fontw:hover {
+  text-decoration: none !important;
+}
+
+.vertical-center {
+  display: flex;
+  align-items: center;
+}
+
+.btn-delete {
+  background: #a30500;
+  background-image: -webkit-linear-gradient(top, #a30500, #570d0a);
+  background-image: -moz-linear-gradient(top, #a30500, #570d0a);
+  background-image: -ms-linear-gradient(top, #a30500, #570d0a);
+  background-image: -o-linear-gradient(top, #a30500, #570d0a);
+  background-image: linear-gradient(to bottom, #a30500, #570d0a);
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  color: #ffffff;
+  font-family: Open Sans;
+  font-size: 1rem;
+  font-weight: 100;
+  padding: 10px;
+  text-decoration: none;
+  display: inline-block;
+  cursor: pointer;
+  text-align: center;
+}
+
+.btn-delete:hover {
+  background: #a30500;
+  text-decoration: none;
+}
+
+@media screen and (max-height: 450px) {
+  .sidenavbar {
+    padding-top: 15px;
   }
-  to {
-    transform: rotate(360deg);
+  .sidelink {
+    font-size: 18px;
   }
 }
