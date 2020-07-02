@@ -2,15 +2,22 @@ import React, { Component } from "react";
 import axiosApi from "../services/axiosApi";
 import { Link } from "react-router-dom";
 import Project from "./project";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faFolderPlus } from "@fortawesome/free-solid-svg-icons";
+import auth from "../services/auth";
 
 class Projects extends Component {
   state = {
     projects: [],
   };
   async componentDidMount() {
-    const { data: projects } = await axiosApi.get("/api/bugtracker/");
-    this.setState({ projects });
-    console.log(projects);
+    try {
+      const { data: projects } = await axiosApi.get("/api/bugtracker/");
+      this.setState({ projects });
+      console.log(projects);
+    } catch (errors) {
+      console.log(errors);
+    }
   }
 
   handleDate = (project) => {
@@ -34,11 +41,22 @@ class Projects extends Component {
   render() {
     return (
       <div>
-        <Project
-          projects={this.state.projects}
-          onDelete={this.handleDelete}
-          date={this.handleDate}
-        />
+        {auth.isLoggedIn() ? (
+          <div>
+            <Project
+              projects={this.state.projects}
+              onDelete={this.handleDelete}
+              date={this.handleDate}
+            />
+            <div className="end-justify">
+              <Link to="/createproject">
+                <FontAwesomeIcon icon={faFolderPlus} size="3x" color="green" />
+              </Link>
+            </div>
+          </div>
+        ) : (
+          <h1>Please signup or login to create and see projects</h1>
+        )}
       </div>
     );
   }

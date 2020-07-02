@@ -1,12 +1,16 @@
 import React, { Component } from "react";
 import axiosApi from "./../services/axiosApi";
 import { Redirect } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faKey } from "@fortawesome/free-solid-svg-icons";
+import auth from "../services/auth";
 
 class Login extends Component {
   state = {
     email: "",
     password: "",
     errors: {},
+    logged: false,
   };
 
   handleSubmit = async (event) => {
@@ -17,8 +21,7 @@ class Login extends Component {
         password: this.state.password,
       });
       localStorage.setItem("Token", response.data.token);
-      console.log(response);
-      return response;
+      window.location = "/";
     } catch (error) {
       throw error;
     }
@@ -28,12 +31,15 @@ class Login extends Component {
     this.setState({ [event.target.name]: event.target.value });
   };
   render() {
-    if (localStorage.getItem("Token") === true) return <Redirect to="/" />;
+    if (auth.isLoggedIn()) return <Redirect to="/" />;
     return (
-      <div>
+      <div className="login text-center">
         <form onSubmit={this.handleSubmit}>
+          <FontAwesomeIcon icon={faKey} size="5x" color="#5bc0de" />
           <div className="form-group">
-            <label htmlFor="">Email:</label>
+            <label>
+              <p className="white-font">Email</p>
+            </label>
             <input
               className="form-control"
               name="email"
@@ -42,7 +48,9 @@ class Login extends Component {
               onChange={this.handleChange}
               placeholder="Type your email address"
             />
-            <label htmlFor="">Password:</label>
+            <label>
+              <p className="white-font">Password</p>
+            </label>
             <input
               className="form-control"
               name="password"
@@ -51,7 +59,12 @@ class Login extends Component {
               onChange={this.handleChange}
               placeholder="Type your password"
             />
-            <input type="submit" value="Submit" className="btn btn-primary" />
+            <br />
+            <input
+              type="submit"
+              value="Submit"
+              className="btn btn-info btn-block"
+            />
           </div>
         </form>
       </div>

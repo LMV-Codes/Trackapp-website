@@ -1,5 +1,9 @@
 import React, { Component } from "react";
 import axiosApi from "./../services/axiosApi";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faAddressCard } from "@fortawesome/free-solid-svg-icons";
+import { Redirect } from "react-router-dom";
+import auth from "../services/auth";
 
 class Register extends Component {
   state = {
@@ -12,12 +16,12 @@ class Register extends Component {
   handleSubmit = (event) => {
     event.preventDefault();
     try {
-      const response = axiosApi.post("api/user/create/", {
+      axiosApi.post("api/user/create/", {
         email: this.state.email,
         password: this.state.password,
         name: this.state.name,
       });
-      return response;
+      window.location = "/login";
     } catch (error) {
       console.log(error);
     }
@@ -27,11 +31,15 @@ class Register extends Component {
     this.setState({ [event.target.name]: event.target.value });
   };
   render() {
+    if (auth.isLoggedIn()) return <Redirect to="/" />;
     return (
-      <div>
+      <div className="register text-center">
+        <FontAwesomeIcon icon={faAddressCard} size="5x" color="#5bc0de" />
         <form onSubmit={this.handleSubmit}>
           <div className="form-group">
-            <label htmlFor="">Email:</label>
+            <label htmlFor="">
+              <p className="white-font">Email</p>
+            </label>
             <input
               className="form-control"
               name="email"
@@ -40,7 +48,9 @@ class Register extends Component {
               onChange={this.handleChange}
               placeholder="Type your email address"
             />
-            <label htmlFor="">Name:</label>
+            <label htmlFor="">
+              <p className="white-font">Name</p>
+            </label>
             <input
               className="form-control"
               name="name"
@@ -49,7 +59,9 @@ class Register extends Component {
               onChange={this.handleChange}
               placeholder="Type your name"
             />
-            <label htmlFor="">Password:</label>
+            <label htmlFor="">
+              <p className="white-font">Password</p>
+            </label>
             <input
               className="form-control"
               name="password"
@@ -58,7 +70,12 @@ class Register extends Component {
               onChange={this.handleChange}
               placeholder="Type your password"
             />
-            <input type="submit" value="Submit" className="btn btn-primary" />
+            <br />
+            <input
+              type="submit"
+              value="Submit"
+              className="btn btn-info btn-block"
+            />
           </div>
         </form>
       </div>
